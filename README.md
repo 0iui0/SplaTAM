@@ -3,6 +3,7 @@
 <p align="center">
 
   <h1 align="center">SplaTAM: Splat, Track & Map 3D Gaussians for Dense RGB-D SLAM</h1>
+  <h3 align="center">CVPR 2024</h3>
   <p align="center">
     <a href="https://nik-v9.github.io/"><strong>Nikhil Keetha</strong></a>
     ·
@@ -30,7 +31,7 @@
 
 <br>
 
-## Coming Soon: Stay Tuned for Faster, Better and Stronger SplaTAM V2 Update!  
+## Stay Tuned for a Faster and Better Variant of SplaTAM! 
 
 <!-- TABLE OF CONTENTS -->
 <details open="open" style='padding: 10px; border-radius:5px 30px 30px 5px; border-style: solid; border-width: 1px;'>
@@ -76,11 +77,11 @@ conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit
 pip install -r requirements.txt
 ```
 
-Alternatively, we also provide a conda environment.yml file :
+<!-- Alternatively, we also provide a conda environment.yml file :
 ```bash
 conda env create -f environment.yml
 conda activate splatam
-```
+``` -->
 
 #### Windows
 
@@ -98,21 +99,23 @@ cd /SplaTAM/
 pip install virtualenv --user
 mkdir venv
 cd venv
-virtualenv splatam --system-site-packages
+virtualenv --system-site-packages splatam
+source ./splatam/bin/activate
 pip install -r venv_requirements.txt
 ```
 
 Setting up a singularity container is similar:
 ```bash
-cd </path/to/singularity/folder/
+cd </path/to/singularity/folder/>
 singularity pull splatam.sif docker://nkeetha/splatam:v1
 singularity instance start --nv splatam.sif splatam
-singularity run --nv instance://gradslam_2
+singularity run --nv instance://splatam
 cd <path/to/SplaTAM/>
 pip install virtualenv --user
 mkdir venv
 cd venv
-virtualenv splatam --system-site-packages
+virtualenv --system-site-packages splatam
+source ./splatam/bin/activate
 pip install -r venv_requirements.txt
 ```
 
@@ -174,10 +177,18 @@ To visualize the SplaTAM reconstruction in an online fashion, please use the fol
 python viz_scripts/online_recon.py configs/iphone/splatam.py
 ```
 
+To export the splats to a .ply file, please use the following command:
+
+```bash
+python scripts/export_ply.py configs/iphone/splatam.py
+```
+
+`PLY` format Splats can be visualized in viewers such as [SuperSplat](https://playcanvas.com/supersplat/editor) & [PolyCam](https://poly.cam/tools/gaussian-splatting).
+
 To run 3D Gaussian Splatting on the SplaTAM reconstruction, please use the following command:
 
 ```bash
-python scripts/post_splatam_opt.pt configs/iphone/post_splatam_opt.py
+python scripts/post_splatam_opt.py configs/iphone/post_splatam_opt.py
 ```
 
 To run 3D Gaussian Splatting on a dataset using ground truth poses, please use the following command:
@@ -355,12 +366,12 @@ We thank the authors of the following repositories for their open-source code:
 If you find our paper and code useful, please cite us:
 
 ```bib
-@article{keetha2023splatam,
-    author    = {Keetha, Nikhil and Karhade, Jay and Jatavallabhula, Krishna Murthy and Yang, Gengshan and Scherer, Sebastian and Ramanan, Deva and Luiten, Jonathan}
-    title     = {SplaTAM: Splat, Track & Map 3D Gaussians for Dense RGB-D SLAM},
-    journal   = {arXiv},
-    year      = {2023},
-}
+@inproceedings{keetha2024splatam,
+        title={SplaTAM: Splat, Track & Map 3D Gaussians for Dense RGB-D SLAM},
+        author={Keetha, Nikhil and Karhade, Jay and Jatavallabhula, Krishna Murthy and Yang, Gengshan and Scherer, Sebastian and Ramanan, Deva and Luiten, Jonathon},
+        booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+        year={2024}
+      }
 ```
 
 ## Developers
